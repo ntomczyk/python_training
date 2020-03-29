@@ -1,2 +1,2 @@
-# python_training
-Qa-courses training
+# Repository for Python training
+
