@@ -1,3 +1,4 @@
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
 class ContactHelper:
@@ -9,6 +10,19 @@ class ContactHelper:
         # Add new contact
         wd.find_element_by_link_text("add new").click()
         # Fill in new contact form
+        self.fill_contact_form(contact)
+        # Submit new contact
+        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+
+    def update_first_contact(self, edit_data):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        self.fill_contact_form(edit_data)
+        # Update contact
+        wd.find_element_by_name("update").click()
+
+    def fill_contact_form(self, contact):
+        wd = self.app.wd
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
         wd.find_element_by_name("lastname").send_keys(contact.lastname)
         wd.find_element_by_name("nickname").send_keys(contact.nickname)
@@ -34,5 +48,9 @@ class ContactHelper:
         wd.find_element_by_name("address2").send_keys(contact.address2)
         wd.find_element_by_name("phone2").send_keys(contact.phone2)
         wd.find_element_by_name("notes").send_keys(contact.notes)
-        # Submit new contact
-        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        # delete contact
+        wd.find_element_by_xpath('//input[@value="Delete"]').click()
