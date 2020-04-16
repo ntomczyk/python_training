@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
 
+
 def test_adding_contact(app):
-    app.contact.create_contact( Contact(firstname="Ada", lastname="Test", nickname="AdaTest_nickname", photo="/home/nina/Pulpit/cookie_monster.jpg",
+    app.contact.create_contact(Contact(firstname="Ada", lastname="Test", nickname="AdaTest_nickname", photo="/home/nina/Pulpit/cookie_monster.jpg",
                                     title="Miss", company="TestCompany",address="Test street 26\n41-400 Warsaw", home_number="+48 23233242",
                                     mobile_number="+48 666333666", work_number="+48 222333222", fax_number="+48 222444222", email="fake_mail1@gmail.com",
                                     email2="fake_mail2@gmail.com", email3="fake_mail3@gmail.com", home_page="https://onet.pl", birthday="8",

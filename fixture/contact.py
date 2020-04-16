@@ -33,6 +33,11 @@ class ContactHelper:
         if text is not None:
             Select(wd.find_element_by_name(field_name)).select_by_visible_text(text)
 
+    def change_photo(self, field_name, photo):
+        wd = self.app.wd
+        if photo is not None:
+            wd.find_element_by_name(field_name).send_keys(photo)
+
     def fill_contact_form(self, contact):
         wd = self.app.wd
 
@@ -40,7 +45,7 @@ class ContactHelper:
         self.change_field_value("lastname", contact.lastname)
         self.change_field_value("nickname", contact.nickname)
         # Add picture
-        self.change_field_value("photo", contact.photo)
+        self.change_photo("photo", contact.photo)
         self.change_field_value("title", contact.title)
         self.change_field_value("company", contact.company)
         self.change_field_value("address", contact.address)
@@ -71,3 +76,9 @@ class ContactHelper:
     def find_first_contact(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
+
+
+    def count(self):
+        wd = self.app.wd
+        self.app.open_home_page()
+        return len(wd.find_elements_by_name("selected[]"))
