@@ -24,6 +24,16 @@ class ContactHelper:
         wd.find_element_by_name("update").click()
         self.contact_cache = None
 
+    def update_contact_by_index(self, index, edit_data):
+        wd = self.app.wd
+        self.app.open_home_page
+        self.find_contact_by_index(index)
+        self.fill_contact_form(edit_data)
+        # Update contact
+        wd.find_element_by_name("update").click()
+        self.app.open_home_page
+        self.contact_cache = None
+
     def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
@@ -71,15 +81,24 @@ class ContactHelper:
         self.change_field_value("notes", contact.notes)
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self,index):
         wd = self.app.wd
-        self.find_first_contact()
+        self.app.open_home_page()
+        self.find_contact_by_index(index)
         # delete contact
-        wd.find_element_by_xpath('//input[@value="Delete"]').click()
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        self.app.open_home_page()
         self.contact_cache = None
 
     def find_first_contact(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
+
+    def find_contact_by_index(self,index):
+        wd = self.app.wd
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
 
 
     def count(self):
