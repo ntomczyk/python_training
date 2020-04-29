@@ -13,4 +13,4 @@ def test_adding_contact(app):
                                     address2="Flower street 22\n41-400 Warsaw", phone2="+48 555333221", notes="Notestest1"))
     app.contact.create_contact(contact)
     new_contacts = app.contact.get_contact_list()
-    assert len(old_contacts) + 1 == len(new_contacts)
+    assert len(old_contacts) + 1 == app.group.count()
