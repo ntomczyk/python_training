@@ -119,11 +119,9 @@ class ContactHelper:
                 firstname = cells[2].text
                 lastname = cells[1].text
                 id = cells[0].find_element_by_tag_name("input").get_attribute("value")
-                all_phones = cells[5].text.splitlines()
-                if len(all_phones) < 4:
-                    continue;
-                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id = id, home_number=all_phones[0], mobile_number=all_phones[1], work_number=all_phones[2],
-                     phone2=all_phones[3]))
+                all_phones = cells[5].text
+                all_emails =cells[4].text
+                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id = id, all_phones_from_home_page=all_phones, all_emails_from_home_page=all_emails ))
         return (self.contact_cache)
 
 
@@ -151,8 +149,11 @@ class ContactHelper:
         work_number = wd.find_element_by_name("work").get_attribute("value")
         mobile_number = wd.find_element_by_name("mobile").get_attribute("value")
         phone2 = wd.find_element_by_name("phone2").get_attribute("value")
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id=id, home_number=home_number, work_number=work_number,
-                       mobile_number=mobile_number, phone2=phone2)
+                       mobile_number=mobile_number, phone2=phone2, email = email, email2=email2, email3=email3)
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
