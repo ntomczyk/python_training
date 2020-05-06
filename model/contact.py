@@ -33,7 +33,8 @@ class Contact:
         self.all_emails_from_home_page = all_emails_from_home_page
 
     def __repr__(self):
-        return "%s:%s" % (self.firstname, self.lastname)
+        return "%s:%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s" % (self.firstname, self.lastname, self.nickname, self.title, self.company, self.address, self.home_number,
+                                   self.mobile_number,  self.work_number,  self.fax_number, self.email, self.email2, self.home_page)
 
     def __eq__(self, other):
         return self.firstname == other.firstname and self.lastname == other.lastname
