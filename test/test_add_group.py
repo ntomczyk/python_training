@@ -11,11 +11,8 @@ def random_string(prefix, maxlen):
     return prefix + "".join([random.choice(symbols) for i in range (random.randrange(maxlen))])
 
 
-testdata = [
-    Group(group_name=group_name, header=header, footer=footer)
-    for group_name in ["", random_string("group_name", 10)]
-    for header in ["", random_string("header", 20)]
-    for footer in ["", random_string("footer", 20)]
+testdata =[Group(group_name= "", header="", footer="")]+[Group(group_name= random_string("group_name", 10), header=random_string("header", 10), footer= random_string("footer", 10))
+    for i in range(5)
 ]
 
 
