@@ -18,3 +18,4 @@ class Group:
             return int(gr.id)
         else:
             return maxsize
+
