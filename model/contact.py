@@ -37,8 +37,7 @@ class Contact:
                                    self.mobile_number,  self.work_number,  self.fax_number, self.email, self.email2, self.home_page)
 
     def __eq__(self, other):
-        return self.firstname == other.firstname and self.lastname == other.lastname
-
+        return self.firstname == other.firstname and self.lastname == other.lastname and (self.id is None or other.id is None or self.id == other.id)
     def id_or_max(ct):
         if ct.id:
             return int(ct.id)

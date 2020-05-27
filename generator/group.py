@@ -25,7 +25,7 @@ for o, a in opts:
  #  in configuration ->parameters e.g. -n 10 -f data/test.json
 
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters +string.digits + string.punctuation + " "
+    symbols = string.ascii_letters +string.digits + " "
     return prefix + "".join([random.choice(symbols) for i in range (random.randrange(maxlen))])
 
 

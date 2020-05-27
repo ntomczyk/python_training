@@ -14,7 +14,8 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
 
-        self.wd.implicitly_wait(1)
+
+        self.wd.implicitly_wait(10)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
@@ -29,10 +30,9 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
-        wd.get(self.base_url)
-        #if not (wd.current_url.endswith("/addressbook/") or
-        #        wd.current_url.endswith("/index.php")):
-        #     wd.get("http://localhost/addressbook")
+        if not (wd.current_url.endswith("/addressbook/") or
+                wd.current_url.endswith("/index.php")):
+            wd.get(self.base_url)
 
     def destroy(self):
         self.wd.quit()

@@ -1,6 +1,5 @@
 from model.group import Group
 
-
 def test_group_list(app, db):
     ui_list = app.group.get_group_list()
     def clean(group):

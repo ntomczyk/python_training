@@ -4,7 +4,7 @@ from random import randrange
 def test_first_phone_on_home_page(app):
     contact_from_home_page = app.contact.get_contact_list()[0]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(0)
-    assert clear(contact_from_home_page.all_phones_from_home_page) == merge_phones_like_on_phone_page(contact_from_edit_page)
+    assert clear(contact_from_home_page.all_phones_from_home_page) == merge_phones_like_on_home_page(contact_from_edit_page)
 
 
 def test_first_phone_on_contact_view_page(app):
@@ -21,11 +21,12 @@ def test_phones_on_home_page_by_index(app):
     index = randrange(len(contacts))
     contact_from_home_page = app.contact.get_contact_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
-    assert clear(contact_from_home_page.all_phones_from_home_page) == merge_phones_like_on_phone_page(contact_from_edit_page)
+    assert clear(contact_from_home_page.all_phones_from_home_page) == merge_phones_like_on_home_page(contact_from_edit_page)
 
 
 def clear(s):
-    return re.sub("[() - +]", "", s)
+    # returns only digits separated by new lines
+    return re.sub("[^0-9\n]", "", s)
 
 def merge_phones_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",

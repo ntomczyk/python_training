@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from model.contact import Contact
 import re
+import time
 
 class ContactHelper:
     def __init__(self,app):
@@ -159,12 +160,56 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contact_view_by_index(index)
         text = wd.find_element_by_id("content").text
-        home_number = re.search("H:(.*)", text).group(1)
-        work_number = re.search("W:(.*)", text).group(1)
-        mobile_number = re.search("M:(.*)", text).group(1)
-        phone2 = re.search("P:(.*)", text).group(1)
+        home_number = self.if_regex_exist(re.search("H:(.*)", text))
+        work_number = self.if_regex_exist(re.search("W:(.*)", text))
+        mobile_number = self.if_regex_exist(re.search("M:(.*)", text))
+        phone2 = self.if_regex_exist(re.search("P:(.*)", text))
         return Contact( home_number=home_number, work_number=work_number,
                        mobile_number=mobile_number, phone2=phone2)
+
+    def if_regex_exist(self, result):
+        if result:
+            return result.group(1)
+        else:
+            return ""
+
+
+    def delete_contact_by_id(self,id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.find_contact_by_id(id)
+        # delete contact
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
+        self.app.open_home_page()
+        self.contact_cache = None
+
+    def find_contact_by_id(self,id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
+    def return_to_home_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home page").click()
+
+    def open_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//a[contains(@href,'edit.php?id=%s')]" % id).click()
+
+
+
+    def update_contact_by_id(self, id, edit_data):
+        wd = self.app.wd
+        self.app.open_home_page()
+        time.sleep(15)
+        self.open_contact_by_id(id)
+        self.fill_contact_form(edit_data)
+        # Update contact
+        wd.find_element_by_xpath("//input[@value='Update']").click()
+        #wd.find_element_by_name("update").click()
+        self.return_to_home_page()
+        self.contact_cache = None
 
 
 
