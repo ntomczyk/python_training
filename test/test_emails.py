@@ -10,11 +10,6 @@ def test_emails_on_home_page_by_index(app):
     assert contact_from_home_page.all_emails_from_home_page == merge_emails_like_on_home_page(contact_from_edit_page)
 
 
-# def clear(s):
-#     # returns only digits separated by new lines
-#     return re.sub("[^0-9\n]", "", ".", "@",s)
-
-
 def merge_emails_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "" and x is not None,
                             map(lambda x: x.strip(), [contact.email, contact.email2, contact.email3])))
